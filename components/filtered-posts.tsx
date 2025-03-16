@@ -1,6 +1,6 @@
 'use client'
 
-import type { Post } from 'content-collections'
+import type { PostFragment } from '../generated/graphql'
 
 // import { useTranslations } from '@tszhong0411/i18n/client'
 import { Input } from '@/components/ui/input'
@@ -11,7 +11,7 @@ import { useState } from 'react'
 import PostCards from './post-cards'
 
 type FilteredPostsProps = {
-  posts: Post[]
+  posts: PostFragment[]
 }
 
 const FilteredPosts = (props: FilteredPostsProps) => {
@@ -42,7 +42,7 @@ const FilteredPosts = (props: FilteredPostsProps) => {
       </div>
       {filteredPosts.length === 0 ? (
         <div className='my-24 text-center text-xl'>
-          {t('component.filtered-posts.no-posts-found')}
+          {"We couldn't find any articles matching your search."}
         </div>
       ) : null}
       <PostCards posts={filteredPosts} />
