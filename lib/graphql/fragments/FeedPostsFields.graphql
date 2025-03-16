@@ -1,0 +1,23 @@
+fragment FeedPostsFields on Post {
+  id
+  title
+  url
+  slug
+  coverImage {
+    url
+  }
+  content {
+    html
+  }
+  tags {
+    id
+    name
+    slug
+  }
+  author {
+    id
+    name
+    username
+  }
+  publishedAt
+}

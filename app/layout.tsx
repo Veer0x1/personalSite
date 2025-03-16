@@ -2,8 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
 import Providers from "./providers";
-import Header from "@/components/layouts/header";
-import Footer from "@/components/layouts/footer";
+import MainLayout from '@/components/main-layout'
 import { cn } from "@/lib/utils";
 
 const geistSans = Geist({
@@ -35,15 +34,13 @@ export default function RootLayout({
 }>) {
   return (
     <html
-     lang="en"
-     className={cn(geistSans.variable, geistMono.variable)}
-     suppressHydrationWarning
-     >
+      lang="en"
+      className={cn(geistSans.variable, geistMono.variable)}
+      suppressHydrationWarning
+    >
       <body>
         <Providers>
-          <Header />
-          {children}
-          <Footer />
+          <MainLayout>{children}</MainLayout>
         </Providers>
       </body>
     </html>

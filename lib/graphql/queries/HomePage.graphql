@@ -1,0 +1,3 @@
+query HomePageInitial($host: String!) {
+    
+}

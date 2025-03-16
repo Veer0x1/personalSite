@@ -1,0 +1,18 @@
+fragment SitemapPostFields on Post {
+  id
+  url
+  slug
+  publishedAt
+  updatedAt
+  tags {
+    id
+    name
+    slug
+  }
+  series {
+    id
+    cuid
+    name
+    slug
+  }
+}
