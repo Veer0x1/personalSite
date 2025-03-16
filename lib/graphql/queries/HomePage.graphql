@@ -1,3 +1,20 @@
 query HomePageInitial($host: String!) {
-    
+  publication(host: $host) {
+    ...Publication
+    about {
+      markdown
+      html
+    }
+    posts (first: 10) {
+      totalDocuments
+    }
+    followersCount
+    author {
+      id
+      followersCount
+    }
+    # pinnedPost {
+    #   ...PostThumbnail
+    # }
+  }
 }
