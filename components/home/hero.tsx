@@ -5,6 +5,12 @@ import Image from 'next/image'
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useState } from 'react'
 
+const indiaFormatter = new Intl.DateTimeFormat("en-US", {
+  timeZone: "Asia/Kolkata",
+  timeZoneName: "short"
+});
+const indiaTime = indiaFormatter.format(new Date());
+
 const TEXTS = [
   {
     key: 'amazing',
@@ -71,7 +77,7 @@ const Hero = () => {
               animate={{ x: 0, opacity: 1 }}
               transition={{ ease: 'easeOut' }}
             >
-              {'I\'m Nelson, a Full Stack Engineer'}
+              {'I\'m Balveer, a Full Stack Engineer'}
             </motion.div>
             <motion.div
               initial={{ x: 30, opacity: 0 }}
@@ -127,7 +133,7 @@ const Hero = () => {
             transition={{ ease: 'easeOut' }}
             className='text-muted-foreground text-sm'
           >
-            {'Hong Kong • UTC/GMT +8'}
+            {`${indiaTime}, India 🇮🇳`}
           </motion.div>
         </div>
         <motion.div
