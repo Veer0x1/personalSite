@@ -14,7 +14,7 @@ export async function getPosts() {
       PostsByPublicationDocument,
       variables
     )
-    console.log("data is: ",data)
+    // console.log("data is: ",data)
     if (!data.publication) {
       throw new Error('Publication not found')
     }

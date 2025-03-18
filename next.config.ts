@@ -8,7 +8,8 @@ const nextConfig: NextConfig = {
         hostname: 'cdn.hashnode.com',
       }
     ]
-  } 
+  }, 
+  transpilePackages:['next-mdx-remote']
 };
 
 export default nextConfig;
