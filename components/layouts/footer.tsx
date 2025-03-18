@@ -1,12 +1,24 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
+const indiaFormatter = new Intl.DateTimeFormat("en-GB", {
+  timeZone: "Asia/Kolkata",
+  timeZoneName: "short"
+});
+const indiaTime = indiaFormatter.format(new Date());
+
 const Footer = () => {
 
   return (
-    <footer className='bg-backround border shadow-xs relative mx-auto mb-6 flex w-full max-w-5xl flex-col rounded-2xl p-8 saturate-10 backdrop-blur-[10px]'>
+    <footer className='bg-backround border-grid border shadow-xs relative mx-auto flex w-full max-w-5xl flex-col p-4 saturate-10 backdrop-blur-[10px]'>
       <div className='flex items-center justify-between text-sm'>
         <div>&copy; {new Date().getFullYear()} Balveer Singh Rao</div>
+
+        <div
+          className='text-muted-foreground text-sm'
+        >
+          {`${indiaTime}, India 🇮🇳`}
+        </div>
         <Button
           variant={'ghost'}
           asChild
@@ -22,6 +34,8 @@ const Footer = () => {
             </svg>
           </Link>
         </Button>
+
+
       </div>
     </footer>
   )
