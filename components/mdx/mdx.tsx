@@ -229,13 +229,13 @@ import remarkGfm from "remark-gfm";
 // import { Alert, AlertDescription } from "./ui/alert";
 
 const components: Components = {
-  h1: ({ className, node: _n, ...props }) => <h1 className={cn("mb-4 mt-6 text-3xl font-bold", className)} {...props} />,
-  h2: ({ className, node: _n, ...props }) => <h2 className={cn("mb-4 mt-6 text-2xl font-semibold", className)} {...props} />,
-  h3: ({ className, node: _n, ...props }) => <h3 className={cn("mb-4 mt-6 text-xl font-semibold", className)} {...props} />,
-  h4: ({ className, node: _n, ...props }) => <h4 className={cn("text-lg font-semibold", className)} {...props} />,
-  h5: ({ className, node: _n, ...props }) => <h5 className={cn("text-sm font-semibold", className)} {...props} />,
-  h6: ({ className, node: _n, ...props }) => <h6 className={cn("text-base font-semibold", className)} {...props} />,
-  a: ({ className, href, node, target, ref, ...props }) => {
+  h1: ({ className, ...props }) => <h1 className={cn("mb-4 mt-6 text-3xl font-bold", className)} {...props} />,
+  h2: ({ className, ...props }) => <h2 className={cn("mb-4 mt-6 text-2xl font-semibold", className)} {...props} />,
+  h3: ({ className, ...props }) => <h3 className={cn("mb-4 mt-6 text-xl font-semibold", className)} {...props} />,
+  h4: ({ className, ...props }) => <h4 className={cn("text-lg font-semibold", className)} {...props} />,
+  h5: ({ className, ...props }) => <h5 className={cn("text-sm font-semibold", className)} {...props} />,
+  h6: ({ className, ...props }) => <h6 className={cn("text-base font-semibold", className)} {...props} />,
+  a: ({ className, href, node, target, ...props }) => {
     const tweetMatch = (node?.properties?.href as string)?.match(/twitter\.com\/\w+\/status\/(\d+)/);
 
     if (typeof node?.properties.href === "string" && tweetMatch) {
@@ -259,12 +259,12 @@ const components: Components = {
 
     return <a className={cn("underline underline-offset-4", className)} href={href ?? ""} target={target ?? "_blank"} {...props} />;
   },
-  strong: ({ className, node: _n, ...props }) => <strong className={cn("font-bold", className)} {...props} />,
+  strong: ({ className, ...props }) => <strong className={cn("font-bold", className)} {...props} />,
   p: (props) => <p className={cn("my-4", props.className)} {...props} />,
-  ul: ({ className, node: _n, ...props }) => <ul className={cn("ml-6 list-disc", className)} {...props} />,
-  ol: ({ className, node: _n, ...props }) => <ol className={cn("ml-6 list-decimal", className)} {...props} />,
+  ul: ({ className, ...props }) => <ul className={cn("ml-6 list-disc", className)} {...props} />,
+  ol: ({ className, ...props }) => <ol className={cn("ml-6 list-decimal", className)} {...props} />,
   li: (props) => <li className={cn("mt-2", props.className)} {...props} />,
-  blockquote: ({ className, node: _n, ...props }) => <blockquote className={cn("my-3 border-l-2 pl-6 italic", className)} {...props} />,
+  blockquote: ({ className, ...props }) => <blockquote className={cn("my-3 border-l-2 pl-6 italic", className)} {...props} />,
   img: ({ className, alt, ...props }) => (
     // eslint-disable-next-line @next/next/no-img-element
     <img className={cn("inline-block rounded-md", className)} alt={alt} {...props} />
@@ -336,7 +336,7 @@ export function Mdx({ code, baseUri }: MdxProps) {
         rehypeRaw,
         rehypeSlug,
         rehypeAutolinkHeadings,
-        // @ts-expect-error
+        // @ts-expect-error just to make it work
         ...(code.includes("```") ? [[rehypeHighlight, { detect: true }]] : []),
       ]}
       urlTransform={transformLink}

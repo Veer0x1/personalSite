@@ -9,14 +9,12 @@ import remarkMdx from 'remark-mdx'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 
 type PageProps = {
-  params: {
-    slug: string
-  }
+  params: Promise<{ slug: string }>
   searchParams: Promise<Record<string, string | string[] | undefined>>
 }
 
 const Page = async ({ params }: PageProps) => {
-  const { slug } = params
+  const slug = (await params).slug
   const post = await getPostBySlug(slug)
 
   console.log('post is:', post)

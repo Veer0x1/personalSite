@@ -1,152 +1,119 @@
 'use client'
 
-// import { useTranslations } from '@tszhong0411/i18n/client'
-import Image from 'next/image'
-import { AnimatePresence, motion } from 'motion/react'
-import { useEffect, useState } from 'react'
-
-const TEXTS = [
-  {
-    key: 'amazing',
-    className:
-      'bg-clip-text text-center text-transparent bg-linear-to-r from-[#ff1835] to-[#ffc900]'
-  },
-  {
-    key: 'stunning',
-    className:
-      'bg-clip-text text-center text-transparent bg-linear-to-r from-[#0077ff] to-[#00e7df]'
-  },
-  {
-    key: 'fantastic',
-    className:
-      'bg-clip-text text-center text-transparent bg-linear-to-r from-[#7f00de] to-[#ff007f]'
-  },
-  {
-    key: 'attractive',
-    className:
-      'bg-clip-text text-center text-transparent bg-linear-to-r from-[#2ecc70] to-[#1ca085]'
-  }
-] as const
-
-const SPEED = 2
-
-const variants = {
-  enter: {
-    y: 100,
-    opacity: 0
-  },
-  center: {
-    y: 0,
-    opacity: 1
-  },
-  exit: {
-    y: -100,
-    opacity: 0
-  }
-}
+import BlurFadeText from "@/components/blur-fade-text"
+import BlurFade from "@/components/blur-fade"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
+import { DATA } from "@/data/resume"
+import Markdown from "react-markdown";
+import rehypeRaw from 'rehype-raw';
+const BLUR_FADE_DELAY = 0.04;
 
 const Hero = () => {
-  const [currentIndex, setCurrentIndex] = useState(0)
-//   const t = useTranslations()
-
-  useEffect(() => {
-    const timer = setInterval(
-      () => setCurrentIndex((prev) => (prev + 1) % TEXTS.length),
-      SPEED * 1000
-    )
-
-    return () => clearInterval(timer)
-  }, [])
-
-  const textItem = TEXTS[currentIndex]
-  if (!textItem) return null
 
   return (
-    <div className='my-16 space-y-6'>
-      <div className='flex justify-between gap-8'>
-        <div className='flex flex-col gap-4'>
-          <h1 className='flex flex-col flex-wrap gap-2 text-xl font-bold sm:text-3xl'>
-            <motion.div
-              initial={{ x: 20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ ease: 'easeOut' }}
-            >
-              {'I\'m Balveer, a Full Stack Engineer'}
-            </motion.div>
-            <motion.div
-              initial={{ x: 30, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ ease: 'easeOut' }}
-              className='flex gap-2'
-            >
-              <motion.div
-                layout
-                key='title-middle-left'
-                className='leading-[30px] sm:leading-[45px]'
-              >
-                {'building'}
-              </motion.div>
-              <div className='relative overflow-hidden'>
-                <AnimatePresence mode='popLayout'>
-                  <motion.div
-                    key={currentIndex}
-                    variants={variants}
-                    initial='enter'
-                    animate='center'
-                    exit='exit'
-                    layout
-                    transition={{
-                      type: 'tween',
-                      duration: 0.3
-                    }}
-                    className='inline-flex items-center justify-center leading-[30px] sm:leading-[45px]'
-                  >
-                    <span className={textItem.className}>{`${textItem.key}`}</span>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-              <motion.div
-                layout
-                key='title-middle-right'
-                className='leading-[30px] sm:leading-[45px]'
-              >
-                {'websites using'}
-              </motion.div>
-            </motion.div>
-            <motion.div
-              initial={{ x: 40, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ ease: 'easeOut' }}
-            >
-              {'React'}
-            </motion.div>
-          </h1>
+    <main className="flex flex-col space-y-10">
+    <section id="hero">
+      <div className="mx-auto w-full space-y-8">
+        <div className="gap-2 flex justify-between">
+          <div className="flex-col flex flex-1 space-y-1.5">
+            <BlurFadeText
+              delay={BLUR_FADE_DELAY}
+              className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
+              yOffset={8}
+              text={`Hi, I'm ${DATA.name.split(" ")[0]} 👋`}
+            />
+            <BlurFadeText
+              className="max-w-[600px] md:text-xl"
+              delay={BLUR_FADE_DELAY}
+              text={DATA.description}
+            />
+          </div>
+          <BlurFade delay={BLUR_FADE_DELAY}>
+            <Avatar className="size-28 border">
+              <AvatarImage  alt={DATA.name} src={DATA.avatarUrl} />
+              <AvatarFallback>{DATA.initials}</AvatarFallback>
+            </Avatar>
+          </BlurFade>
         </div>
-        <motion.div
-          className='relative hidden size-28 md:block'
-          initial={{
-            scale: 0
-          }}
-          animate={{
-            scale: 1
-          }}
-          transition={{
-            duration: 0.3
-          }}
-        >
-          <Image
-            src='/images/avatar.png'
-            className='rounded-full'
-            width={112}
-            height={112}
-            alt='Nelson Lai'
-            // lazy={false}
-          />
-          <div className='bg-linear-to-tl absolute inset-0 -z-10 from-purple-700 to-orange-700 opacity-50 blur-2xl' />
-        </motion.div>
       </div>
-    </div>
-  )
+    </section>
+    <section id="about">
+      <BlurFade delay={BLUR_FADE_DELAY * 3}>
+        <h2 className="text-xl font-bold">About</h2>
+      </BlurFade>
+      <BlurFade delay={BLUR_FADE_DELAY * 4}>
+        <Markdown
+        rehypePlugins={[rehypeRaw]}
+        >
+          {DATA.summary}
+        </Markdown>
+      </BlurFade>
+    </section>
+    {/* <section id="work">
+      <div className="flex min-h-0 flex-col gap-y-3">
+        <BlurFade delay={BLUR_FADE_DELAY * 5}>
+          <h2 className="text-xl font-bold">Work Experience</h2>
+        </BlurFade>
+        {DATA.work.map((work, id) => (
+          <BlurFade
+            key={work.company}
+            delay={BLUR_FADE_DELAY * 6 + id * 0.05}
+          >
+            <ResumeCard
+              key={work.company}
+              logoUrl={work.logoUrl}
+              altText={work.company}
+              title={work.company}
+              subtitle={work.title}
+              href={work.href}
+              badges={work.badges}
+              period={`${work.start} - ${work.end ?? "Present"}`}
+              description={work.description}
+            />
+          </BlurFade>
+        ))}
+      </div>
+    </section> */}
+    {/* <section id="education">
+      <div className="flex min-h-0 flex-col gap-y-3">
+        <BlurFade delay={BLUR_FADE_DELAY * 7}>
+          <h2 className="text-xl font-bold">Education</h2>
+        </BlurFade>
+        {DATA.education.map((education, id) => (
+          <BlurFade
+            key={education.school}
+            delay={BLUR_FADE_DELAY * 8 + id * 0.05}
+          >
+            <ResumeCard
+              key={education.school}
+              href={education.href}
+              logoUrl={education.logoUrl}
+              altText={education.school}
+              title={education.school}
+              subtitle={education.degree}
+              period={`${education.start} - ${education.end}`}
+            />
+          </BlurFade>
+        ))}
+      </div>
+    </section> */}
+    <section id="skills">
+      <div className="flex min-h-0 flex-col gap-y-3">
+        <BlurFade delay={BLUR_FADE_DELAY * 9}>
+          <h2 className="text-xl font-bold">Skills</h2>
+        </BlurFade>
+        <div className="flex flex-wrap gap-1">
+          {DATA.skills.map((skill, id) => (
+            <BlurFade key={skill} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
+              <Badge key={skill}>{skill}</Badge>
+            </BlurFade>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+     )
 }
 
 export default Hero
