@@ -12,6 +12,7 @@ fragment PostFull on Post {
   hasLatexInPost
   publishedAt
   updatedAt
+  views
   readTimeInMinutes
   reactionCount
   responseCount

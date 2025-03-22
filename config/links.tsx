@@ -8,11 +8,11 @@ import {
   } from '@icons-pack/react-simple-icons'
   import {
     // BarChartIcon,
-    FlameIcon,
+    // FlameIcon,
     // MessageCircleIcon,
     // MonitorIcon,
     PencilIcon,
-    UserCircleIcon
+    // UserCircleIcon
   } from 'lucide-react'
   
   import {
@@ -35,16 +35,16 @@ import {
       href: '/blog',
       key: 'blog'
     },
-    {
-      icon: <FlameIcon className='size-3.5' />,
-      href: '/projects',
-      key: 'projects'
-    },
-    {
-      icon: <UserCircleIcon className='size-3.5' />,
-      href: '/about',
-      key: 'about'
-    }
+    // {
+    //   icon: <FlameIcon className='size-3.5' />,
+    //   href: '/projects',
+    //   key: 'projects'
+    // },
+    // {
+    //   icon: <UserCircleIcon className='size-3.5' />,
+    //   href: '/about',
+    //   key: 'about'
+    // }
   ] as const
   
   export const FOOTER_LINKS = [

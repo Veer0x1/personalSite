@@ -5,7 +5,8 @@ const indiaFormatter = new Intl.DateTimeFormat("en-GB", {
   timeZone: "Asia/Kolkata",
   timeZoneName: "short"
 });
-const indiaTime = indiaFormatter.format(new Date());
+const parts = indiaFormatter.formatToParts(new Date());
+const timeZoneName = parts.find(part => part.type === 'timeZoneName')?.value || '';
 
 const Footer = () => {
 
@@ -17,7 +18,7 @@ const Footer = () => {
         <div
           className='text-muted-foreground text-sm'
         >
-          {`${indiaTime}, India 🇮🇳`}
+          {`${timeZoneName}, India 🇮🇳`}
         </div>
         <Button
           variant={'ghost'}

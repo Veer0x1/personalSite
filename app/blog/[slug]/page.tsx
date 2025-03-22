@@ -7,6 +7,7 @@ import rehypeRaw from 'rehype-raw'
 import remarkDirective from 'remark-directive'
 import remarkMdx from 'remark-mdx'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
+import Header from '@/app/blog/[slug]/header'
 
 type PageProps = {
   params: Promise<{ slug: string }>
@@ -40,7 +41,7 @@ const Page = async ({ params }: PageProps) => {
         /> */}
 
       {/* <Providers post={post}> */}
-      {/* <Header /> */}
+      <Header title={post?.title} PublishedDate={ post?.publishedAt || ''} likes={post?.reactionCount || 0} views={post?.views || 0}/>
 
       <div className='mt-8 flex flex-col justify-between lg:flex-row'>
       {/* <h1>{mdxSource.frontmatter}</h1> */}
